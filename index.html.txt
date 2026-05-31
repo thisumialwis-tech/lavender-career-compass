@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavender Career Compass | AI Career Guidance for Sri Lankan Students</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-color: #6A4C93; /* Lavender Dark */
+            --primary-light: #9B7EBD; /* Lavender Mid */
+            --accent-color: #FFC857; /* Soft Yellow/Gold for contrast */
+            --bg-light: #F8F7FC;
+            --text-dark: #2D2D44;
+            --text-light: #666680;
+            --white: #ffffff;
+            --gradient-main: linear-gradient(135deg, #6A4C93 0%, #9B7EBD 100%);
+            --shadow-card: 0 10px 30px rgba(106, 76, 147, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-main);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(106, 76, 147, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 76, 147, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding-top: 160px;
+            padding-bottom: 100px;
+            background: radial-gradient(circle at top right, rgba(155, 126, 189, 0.1), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(106, 76, 147, 0.05), transparent 40%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .hero-text span {
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 90%;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- ABOUT US --- */
+        .about {
+            background: var(--white);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        /* --- SERVICES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            text-align: center;
+            border-bottom: 3px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            background: rgba(106, 76, 147, 0.1);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin-inline: auto;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* --- AI DEMO SECTION --- */
+        .ai-demo {
+            background: var(--gradient-main);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-demo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotateBg 20s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .ai-container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .ai-intro h2 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .ai-intro p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+        }
+
+        .ai-form-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(106, 76, 147, 0.1);
+        }
+
+        /* AI Results Area */
+        #ai-results {
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+        }
+
+        .result-card {
+            background: #f0f4ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .result-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(106, 76, 147, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- FEATURES --- */
+        .features {
+            background: var(--white);
+        }
+
+        .features-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .features-img img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+        }
+
+        .features-list .feature-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .feature-icon {
+            background: rgba(106, 76, 147, 0.1);
+            color: var(--primary-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .feature-text p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* --- CONTACT --- */
+        .contact {
+            background: var(--bg-light);
+        }
+
+        .contact-form-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+        }
+
+        .contact-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--primary-light);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #aaa;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-about p {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .hero-text h1 { font-size: 2.8rem; }
+            .ai-container { grid-template-columns: 1fr; }
+            .features-wrapper { grid-template-columns: 1fr; }
+            .features-img { order: -1; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.4s ease;
+                box-shadow: -5px 0 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active { right: 0; }
+            .mobile-toggle { display: block; color: var(--primary-color); }
+            
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .hero-text p { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-image { max-width: 500px; margin: 30px auto 0; }
+            
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fa-solid fa-compass-drafting"></i> Lavender Career Compass
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#ai-demo">AI Demo</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text reveal">
+                    <h1>Find Your Best Path After <span>A/L with AI</span></h1>
+                    <p>Confused about your future? Discover the best universities, careers, vocational pathways, and study abroad opportunities tailored specifically for Sri Lankan students using our advanced AI engine.</p>
+                    <div class="hero-buttons">
+                        <a href="#ai-demo" class="btn btn-primary">Try AI Career Counselor</a>
+                        <a href="#services" class="btn btn-outline">Explore Pathways</a>
+                    </div>
+                </div>
+                <div class="hero-image reveal">
+                    <!-- Placeholder Image: Abstract Tech/Education -->
+                    <img src="https://picsum.photos/seed/lavendertech/600/400" alt="Student planning career with AI">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section class="section-padding about" id="about">
+        <div class="container">
+            <div class="about-content reveal">
+                <h2 class="section-title">About Lavender Career Compass</h2>
+                <p>Our mission is to bridge the gap between A/L qualifications and the right future. We understand the pressure Sri Lankan students face during the transition from school to higher education.</p>
+                <p>We use data-driven AI to analyze your specific results, interests, and financial background to suggest realistic pathways—whether it's a state university, a private degree, a TVEC/NVQ vocational qualification, or an international scholarship.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section-padding" id="services">
+        <div class="container">
+            <div class="text-center reveal">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Comprehensive guidance covering every possible pathway after A/Ls.</p>
+            </div>
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI Career Guidance</h3>
+                    <p>Chat with our AI to get instant answers about which degrees match your personality and Z-score.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-university"></i></div>
+                    <h3>University Guidance</h3>
+                    <p>Detailed information on UGC state universities and their cut-off marks for popular streams.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-certificate"></i></div>
+                    <h3>TVEC / NVQ Pathways</h3>
+                    <p>Explore vocational courses offered by VTA and NVQ institutes for hands-on careers.</p>
+                </div>
+                <!-- Service 4 -->
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-plane-departure"></i></div>
+                    <h3>Study Abroad Guidance</h3>
+                    <p>Find scholarships and affordable universities in UK, Australia, Canada, and India.</p>
+                </div>
+                <!-- Service 5 -->
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Career Planning</h3>
+                    <p>Map out your 5-year plan with market trends and salary insights for the Sri Lankan job market.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI DEMO SECTION -->
+    <section class="section-padding ai-demo" id="ai-demo">
+        <div class="container">
+            <div class="ai-container">
+                <div class="ai-intro reveal">
+                    <h2>Experience the AI Counselor</h2>
+                    <p>Enter your details below to see how our algorithm recommends the best educational and career paths for you.</p>
+                    <ul style="margin-top: 20px; padding-left: 20px;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Analyzes A/L Stream</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Cross-references Z-score & Results</li>
+                        <li><i class="fas fa-check-circle"></i> Matches with Interests</li>
+                    </ul>
+                </div>
+                
+                <div class="ai-form-card reveal">
+                    <form id="aiForm">
+                        <div class="form-group">
+                            <label for="stream">A/L Stream</label>
+                            <select id="stream" class="form-control" required>
+                                <option value="" disabled selected>Select Stream</option>
+                                <option value="maths">Mathematics</option>
+                                <option value="bio">Biological Science</option>
+                                <option value="commerce">Commerce</option>
+                                <option value="arts">Arts</option>
+                                <option value="tech">Technology</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="results">Expected / Obtained Results (General)</label>
+                            <select id="results" class="form-control" required>
+                                <option value="" disabled selected>Select Result Range</option>
+                                <option value="3A">3A (Distinction)</option>
+                                <option value="2B1C">2B 1C (Credit)</option>
+                                <option value="1S">1S (Simple Pass)</option>
+                                <option value="pending">Pending / General</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Primary Interest</label>
+                            <input type="text" id="interest" class="form-control" placeholder="e.g. Software, Nursing, Marketing..." required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Analyze My Path</button>
+                    </form>
+
+                    <!-- Loading Spinner -->
+                    <div id="loading" class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p style="color: var(--primary-color); font-weight: 500;">AI is analyzing Sri Lanka's education database...</p>
+                    </div>
+
+                    <!-- AI Output -->
+                    <div id="ai-results">
+                        <!-- Results injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="section-padding features" id="features">
+        <div class="container">
+            <div class="features-wrapper">
+                <div class="features-img reveal">
+                    <img src="https://picsum.photos/seed/careerfeatures/600/450" alt="Career Planning Features">
+                </div>
+                <div class="features-list reveal">
+                    <h2 class="section-title">Why Choose Us?</h2>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-user-check"></i></div>
+                        <div class="feature-text">
+                            <h4>Personalized Recommendations</h4>
+                            <p>No generic advice. Our AI considers your specific subjects and results.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-database"></i></div>
+                        <div class="feature-text">
+                            <h4>SL Education Database</h4>
+                            <p>Comprehensive data on UGC universities, private institutes, and vocational bodies.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-road"></i></div>
+                        <div class="feature-text">
+                            <h4>Multiple Pathways</h4>
+                            <p>We highlight government, private, and scholarship options side-by-side.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-fingerprint"></i></div>
+                        <div class="feature-text">
+                            <h4>Career Matching</h4>
+                            <p>Connect your degree choice to actual job market demand in Sri Lanka.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section-padding contact" id="contact">
+        <div class="container">
+            <div class="text-center reveal">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Have questions about a specific university or visa process? Message us.</p>
+            </div>
+            <div class="contact-form-wrapper reveal">
+                <form>
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" class="form-control" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-control" rows="5" placeholder="How can we help you?"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary contact-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-about">
+                    <div class="logo" style="color: white; margin-bottom: 15px;">
+                        <i class="fa-solid fa-compass-drafting" style="color: var(--primary-light);"></i> Lavender Career Compass
+                    </div>
+                    <p>Empowering Sri Lankan youth to make informed decisions about their higher education and future careers through Artificial Intelligence.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#ai-demo">AI Tool</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Pathways</h4>
+                    <ul>
+                        <li><a href="#">State University</a></li>
+                        <li><a href="#">Private Degrees</a></li>
+                        <li><a href="#">Vocational Training</a></li>
+                        <li><a href="#">Scholarships</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">info@lavendercompass.lk</a></li>
+                        <li><a href="#">+94 11 234 5678</a></li>
+                        <li><a href="#">Colombo 03, Sri Lanka</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Lavender Career Compass. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Mobile Menu Toggle ---
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            mobileToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                // Change icon
+                const icon = mobileToggle.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileToggle.querySelector('i').classList.remove('fa-times');
+                    mobileToggle.querySelector('i').classList.add('fa-bars');
+                });
+            });
+
+            // --- 2. Scroll Reveal Animation ---
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 150;
+
+                revealElements.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            // Trigger once on load
+            revealOnScroll();
+
+            // --- 3. AI Demo Logic (Simulation) ---
+            const aiForm = document.getElementById('aiForm');
+            const aiResults = document.getElementById('ai-results');
+            const loadingSpinner = document.getElementById('loading');
+
+            aiForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Get Values
+                const stream = document.getElementById('stream').value;
+                const results = document.getElementById('results').value;
+                const interest = document.getElementById('interest').value.toLowerCase();
+
+                // Reset UI
+                aiResults.style.display = 'none';
+                aiResults.innerHTML = '';
+                loadingSpinner.style.display = 'block';
+
+                // Simulate Processing Delay (1.5 seconds)
+                setTimeout(() => {
+                    loadingSpinner.style.display = 'none';
+                    generateRecommendations(stream, results, interest);
+                }, 1500);
+            });
+
+            function generateRecommendations(stream, results, interest) {
+                let recommendationsHTML = '';
+
+                // Simple logic to mimic AI analysis based on inputs
+                
+                // 1. University Recommendation
+                let uniText = "";
+                if (results === '3A' || results === '2B1C') {
+                    if(stream === 'bio') uniText = "High chance for Medicine (Colombo/Peradeniya) or Dental Surgery.";
+                    else if(stream === 'maths') uniText = "Eligible for Engineering (Moratuwa) or Computer Science (UCSC/Peradeniya).";
+                    else if(stream === 'commerce') uniText = "Eligible for Management (Jayewardanapura) or Finance (Colombo).";
+                    else if(stream === 'arts') uniText = "Eligible for Arts (Peradeniya) or Law (Colombo).";
+                    else uniText = "Strong chance for Engineering Technology or ICT based faculties.";
+                } else if (results === '1S') {
+                    uniText = "Consider applying for external degrees or private institutes (SLIIT, APIIT).";
+                } else {
+                    uniText = "Focus on Foundation courses or NVQ Level 5/6 vocational diplomas.";
+                }
+
+                // 2. Interest/Career Match
+                let careerText = "";
+                if (interest.includes('it') || interest.includes('software') || interest.includes('computer')) {
+                    careerText = "Software Engineering, Data Science, or Cyber Security. High demand in SL.";
+                } else if (interest.includes('nurse') || interest.includes('doc') || interest.includes('medical')) {
+                    careerText = "Nursing (Private/Kandy), Pharmacy, or Lab Technology pathways.";
+                } else if (interest.includes('teach') || interest.includes('edu')) {
+                    careerText = "National College of Education (NCoE) or Arts Dip. in Education.";
+                } else {
+                    careerText = `Careers related to ${interest}. We suggest checking the TVEC database for specific vocational courses.`;
+                }
+
+                // 3. Alternative Pathway (Vocational/Abroad)
+                let altText = "Scholarships available in India (low cost) for Engineering/MBBS.";
+                if (stream === 'tech') altText = "City & Guilds or NVQ Level 6 in Mechatronics is a great alternative.";
+                if (stream === 'arts') altText = "Consider HND in English/Marketing at SLIATE or private institutes.";
+
+                // Build Cards
+                recommendationsHTML += `
+                    <div class="result-card">
+                        <div class="result-title"><span>University Pathway</span> <i class="fas fa-graduation-cap"></i></div>
+                        <p>${uniText}</p>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-title"><span>Career Match</span> <i class="fas fa-briefcase"></i></div>
+                        <p>${careerText}</p>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-title"><span>Alternative Option</span> <i class="fas fa-route"></i></div>
+                        <p>${altText}</p>
+                    </div>
+                `;
+
+                aiResults.innerHTML = recommendationsHTML;
+                aiResults.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
